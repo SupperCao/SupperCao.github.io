@@ -1,0 +1,51 @@
+---
+layout:     post
+title:      SpringMVC 入门🦄
+subtitle:   
+date:       2018-07-25
+author:     CJ
+header-img: img/home-bg-art.jpg
+catalog: true
+tags:
+    - SpringMVC学习
+---
+
+
+
+## SpringMVC 入门🦄
+
+### 什么是MVC设计模式?
+- Controller： 负责接收并且处理请求,响应客户端。
+- Model：模型数据,业务逻辑
+- View：呈现模型,与用户进行交互。
+![](https://ws3.sinaimg.cn/large/006tNc79gy1ftgr2xfgyyj30aj0aidhc.jpg)
+
+<br/>
+<br/>
+<br/>
+----
+
+
+### SpringMVC核心组件
+1.  `DispatcherServlet`:前置控制器
+2.  `Handler`: 处理器
+3.  `HandlerMapping`: 将请求映射到Handler
+4.  `HandlerInterceptor`: 处理器拦截器
+5.  `HandlerExecutionChain`: 处理器执行链
+6.  `HandlerAdapter`: 处理器适配器
+7.  `ModelAndView`: 装载模型数据和视图信息
+8.  `ViewResolver`: 视图解析器
+
+<br/>
+<br/>
+
+### SpringMVC实现流程
+1.  客户端请求被DispatcherServlet接收
+2.  DISpatcherServlet将请求映射到Handler
+3.  生成Handler以及HandlerInterceptor
+4.  返回HandlerExecutionChain(Handler+HandlerInterceptor)
+5.  DispatcherServlet通过HandlerAdapter执行Handler
+6.  返回一个ModelAndView
+7.  DispatcherServlet通过ViewResolver进行解析
+8.  返回填充了模型数据的View,响应给客户端
+![](https://ws4.sinaimg.cn/large/006tNc79gy1ftgrht5fc3j30u40dejy3.jpg)

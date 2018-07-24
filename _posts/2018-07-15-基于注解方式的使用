@@ -1,0 +1,29 @@
+---
+layout:     post
+title:      基于注解方式的使用🍔
+subtitle:   
+date:       2018-07-24
+author:     CJ
+header-img: img/home-bg-art.jpg
+catalog: true
+tags:
+    - SpringMVC学习
+---
+
+## 	基于注解方式的使用🍔
+
+- SpringMVC基础配置
+- Controller, HandlerMappiAng通过注解进行映射
+- XML配置ViewResolver组件映射
+
+##  关于各个注解
+`@Controller:` 用于标记一个类上面的,使用它标记的类就是一个控制器,这个类中的方法就是相应的动作。
+<br/>
+<br/>
+`@RequestMapping:` 是一个用来处理请求地址映射的注解, 用于类上比如
+![](https://images2015.cnblogs.com/blog/738476/201612/738476-20161201162323646-1813599396.png)
+在这个图里面的`@Controller` 就把这个类标记为了控制器,为什么要标记为`Controller`呢, 因为前面也讲了`MVC`设计模式 是通过这样来传递的
+![](https://ws3.sinaimg.cn/large/006tNc79gy1ftgr2xfgyyj30aj0aidhc.jpg)
+
+`@service:` @Servic("userService")注解是告诉spring, 要创建userService实例的时候,bean的名字必须叫做`userService`这样,当Action需要实例, 直接调用userService就可以注入到Action了
+

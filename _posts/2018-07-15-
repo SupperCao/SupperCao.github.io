@@ -1,0 +1,156 @@
+---
+layout:     post
+title:      🏍SpringMVC的使用🏝
+subtitle:   
+date:       2018-07-24
+author:     CJ
+header-img: img/home-bg-art.jpg
+catalog: true
+tags:
+    - SpringMVC学习
+---
+
+
+## 🏍SpringMVC的使用🏝
+- 大部分组件都是由框架提供的, 我们只需要通过配置进行关联
+- 开发者只需手动编写Handler, View
+
+<br/>
+
+### 基于Xmlm配置的使用
+ 1. SpringMVC基础配置
+ 2. XML配置Controller,HandlerMapping组件映射
+ 3. XMl配置ViewResolver组件映射
+
+ <br/>
+
+### 首先创建一个MAVEN项目
+配置`pom.xml`文件,写入依赖:
+
+```
+ <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>4.3.1.RELEASE</version>
+    </dependency>
+
+```
+<br/>
+
+
+
+### 然后配置`xml`文件
+
+```
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+    
+  <servlet>
+    <servlet-name>SpringMVC</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+
+    <!--配置springmvc.xml的路径-->
+    <init-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:springmvc.xml</param-value>
+    </init-param>  
+  </servlet>
+    
+    
+  <servlet-mapping>
+      <servlet-name>SpringMVC</servlet-name>
+      <url-pattern>/</url-pattern>
+  </servlet-mapping>  
+
+
+</web-app>
+
+```
+
+### 创建一个MyHandler类
+
+```
+public class MyHandler implements Controller {
+
+    @Override
+    public ModelAndView handleRequest(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws Exception {
+        //装载模型数据的逻辑视图
+        ModelAndView modelAndView = new ModelAndView();
+        //添加模型数据
+        modelAndView.addObject("name","Tom");
+        //添加逻辑视图
+        modelAndView.setViewName("show");
+
+
+        return modelAndView;
+    }
+}
+
+```
+
+### 配置`springmvc.xml`
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+<!--配置HandlerMapping,将Url请求映射到Handler-->
+    <bean id="hadlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+    <!--配置mapping-->
+        <property name="mappings">
+            <props>
+                <!--配置test请求对应的handler-->
+                <prop key="/test">testHandler</prop>
+            </props>
+        </property>
+
+    </bean>
+
+    <!--配置Handler-->
+    <bean id="testHandler" class="com.imooc.handler.MyHandler"></bean>
+
+    <!--配置视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!--配置前缀-->
+        <property name="prefix" value="/"></property>
+        <!--配置后缀-->
+        <property name="suffix" value=".jsp"></property>
+
+    </bean>
+
+
+</beans>
+
+```
+<br/>
+----
+<br/>
+
+### 使用一个jsp页面来显示名为`show.jsp`
+
+```
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page isELIgnored="false" %>
+<html>
+<head>
+    <title>Title</title>
+</head>
+<body>
+   ${name}
+</body>
+</html>
+
+
+```
+启动tomcat后页面显示的应该也就是show.jsp 修改url为/test则显示为Tom
+
+
+
+
+
+
+
+
